@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat App</title>
+</head>
+<body>
+    <h1>Hello Harsh </h1>
+    <h1>Hello Harsh </h1>
+    <h1>Hello Harsh </h1>
+    <h1>Hello Harsh </h1>
+    <h1>Hello Harsh </h1>
+    <h1>Hello India </h1>
+
+    
+    <!-- Rest of your existing HTML and JavaScript code -->
+</body>
+</html>
+
+  <h1>Chat App</h1>
+  <input type="text" id="roomInput" placeholder="Enter room name">
+  <button id="joinButton">Join Room</button>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Enter your message">
+  <button id="sendButton">Send</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    document.getElementById('joinButton').addEventListener('click', () => {
+      const room = document.getElementById('roomInput').value;
+      socket.emit('join', room);
+    });
+
+    document.getElementById('sendButton').addEventListener('click', () => {
+      const message = document.getElementById('messageInput').value;
+      const room = document.getElementById('roomInput').value;
+      socket.emit('message', room, message);
+    });
+
+    socket.on('message', (message) => {
+      const messagesDiv = document.getElementById('messages');
+      const messageDiv = document.createElement('div');
+      messageDiv.textContent = message;
+      messagesDiv.appendChild(messageDiv);
+    });
+  </script>
+</body>
+</html>
